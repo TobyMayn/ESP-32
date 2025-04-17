@@ -1,5 +1,5 @@
 /**********************************************************************
-  Filename    : ButtonAndLed
+  Filename    : TableLamp
   Description : Control led by button.
   Auther      : www.freenove.com
   Modification: 2024/06/18
@@ -7,6 +7,7 @@
 #include <Arduino.h>
 #define PIN_LED    2
 #define PIN_BUTTON 13
+void reverseGPIO(int pin);
 // the setup function runs once when you press reset or power the board
 void setup() {
   // initialize digital pin PIN_LED as an output.
@@ -17,8 +18,16 @@ void setup() {
 // the loop function runs over and over again forever
 void loop() {
   if (digitalRead(PIN_BUTTON) == LOW) {
-    digitalWrite(PIN_LED,HIGH);
-  }else{
-    digitalWrite(PIN_LED,LOW);
+    delay(20);
+    if (digitalRead(PIN_BUTTON) == LOW) {
+      reverseGPIO(PIN_LED);
+    }
+    while (digitalRead(PIN_BUTTON) == LOW);
+    delay(20);
+    //while (digitalRead(PIN_BUTTON) == LOW);
   }
+}
+
+void reverseGPIO(int pin) {
+  digitalWrite(pin, !digitalRead(pin));
 }
