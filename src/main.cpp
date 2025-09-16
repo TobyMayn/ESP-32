@@ -11,8 +11,9 @@
 #define PWM_BIT 8 //define the pwm precision
 
 void setup(){
-  ledcAttachChannel(PIN_LED, FRQ, PWM_BIT, CHN); //attach led pin to pwm channel
-}
+  //attach led pin to pwm channel
+  ledcAttachChannel(PIN_LED, FRQ, PWM_BIT, CHN);
+} 
 
 void loop(){
   for (int i = 0; i < 255; i++){
