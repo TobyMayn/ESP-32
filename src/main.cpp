@@ -5,29 +5,22 @@
   Modification: 2024/06/18
 **********************************************************************/
 #include <Arduino.h>
-byte ledPins[] = {15, 2, 0, 4, 5, 18, 19, 21, 22, 23};
-int ledCounts;
+#define PIN_LED 2 //define the led pin
+#define CHN 0     //define the pwm channel
+#define FRQ 1000  //define the pwm frequency
+#define PWM_BIT 8 //define the pwm precision
 
-void setup() {
-  // Initialize pins to output mode
-  ledCounts = sizeof(ledPins);
-  for (int i =0; i < ledCounts; i++){
-    pinMode(ledPins[i], OUTPUT);
-  }
+void setup(){
+  ledcAttachChannel(PIN_LED, FRQ, PWM_BIT, CHN); //attach led pin to pwm channel
 }
 
-void loop() {
-  // Make leds light from top/left to bottom/right
-  for(int i = 0; i < ledCounts; i++){
-    digitalWrite(ledPins[i], HIGH);
-    delay(100);
-    digitalWrite(ledPins[i], LOW);
+void loop(){
+  for (int i = 0; i < 255; i++){
+    ledcWrite(PIN_LED, i);
+    delay(10);
   }
-  // Make leds light from bottom/right to top/left
-  for(int i = ledCounts-1; i >-1; i--){
-    digitalWrite(ledPins[i], HIGH);
-    delay(100);
-    digitalWrite(ledPins[i], LOW);
-
+  for (int i = 255; i > -1; i--){
+    ledcWrite(PIN_LED, i);
+    delay(10);
   }
 }
