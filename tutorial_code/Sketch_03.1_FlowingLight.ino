@@ -1,33 +1,28 @@
 /**********************************************************************
-  Filename    : TableLamp
-  Description : Control led by button.
+  Filename    : FlowingLight
+  Description : Using ledbar to demonstrate flowing lamp.
   Auther      : www.freenove.com
   Modification: 2024/06/18
 **********************************************************************/
-#include <Arduino.h>
 byte ledPins[] = {15, 2, 0, 4, 5, 18, 19, 21, 22, 23};
 int ledCounts;
 
 void setup() {
-  // Initialize pins to output mode
   ledCounts = sizeof(ledPins);
-  for (int i =0; i < ledCounts; i++){
+  for (int i = 0; i < ledCounts; i++) {
     pinMode(ledPins[i], OUTPUT);
   }
 }
 
 void loop() {
-  // Make leds light from top/left to bottom/right
-  for(int i = 0; i < ledCounts; i++){
+  for (int i = 0; i < ledCounts; i++) {
     digitalWrite(ledPins[i], HIGH);
     delay(100);
     digitalWrite(ledPins[i], LOW);
   }
-  // Make leds light from bottom/right to top/left
-  for(int i = ledCounts-1; i >-1; i--){
+  for (int i = ledCounts - 1; i > -1; i--) {
     digitalWrite(ledPins[i], HIGH);
     delay(100);
     digitalWrite(ledPins[i], LOW);
-
   }
 }
