@@ -12,3 +12,5 @@ In the end, I will build a final project for a home monitor system that will let
 For the project im using **vs-code** with the *PlatformIO IDE* plugin to build and upload code to the device.
 
 Important Note: As the tutorial code is meant to be run in the Arduino IDE, it is necessary to import the `<Arduino.h>` header file, in order for the Intellisense to recognise the functions provided in the tutorial code.
+
+Additional Note: Some functions from the tutorial has been deprecated and will need to be changed to the newer functions defined in this [readme](https://github.com/espressif/arduino-esp32/blob/master/docs/en/migration_guides/2.x_to_3.0.rst)
