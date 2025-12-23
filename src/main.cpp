@@ -5,23 +5,41 @@
   Modification: 2024/06/18
 **********************************************************************/
 #include <Arduino.h>
-#define PIN_LED 2 //define the led pin
-#define CHN 0     //define the pwm channel
-#define FRQ 1000  //define the pwm frequency
-#define PWM_BIT 8 //define the pwm precision
 
-void setup(){
-  //attach led pin to pwm channel
-  ledcAttachChannel(PIN_LED, FRQ, PWM_BIT, CHN);
-} 
+const byte ledPins[] = {4, 2, 15};//define red, green, blue led pins
+const byte chns[] = {0, 1, 2};//define the pwm channels
 
-void loop(){
-  for (int i = 0; i < 255; i++){
-    ledcWrite(PIN_LED, i);
-    delay(10);
+int red, green, blue;
+
+void setup() {
+    for (int i = 0; i < 3; i++) {
+      //setup the pwm channels,1KHz,8bit
+      ledcAttachChannel(ledPins[i], 500, 8, chns[i]);
+    }
+}
+
+void setColor(long rgb) {
+    ledcWrite(chns[0], 255 - (rgb >> 16) & 0xFF); //Common anode LED, low level to turn on the led.
+    ledcWrite(chns[1], 255 - (rgb >> 8) & 0xFF);
+    ledcWrite(chns[2], 255 - (rgb >> 0) & 0xFF);
+}
+
+long wheel(int pos) {
+  long WheelPos = pos % 0xff;
+  if (WheelPos < 85) {
+    return ((255 - WheelPos * 3) << 16) | ((WheelPos * 3) << 8);
+  } else if (WheelPos < 170) {
+    WheelPos -= 85;
+    return (((255 - WheelPos * 3) << 8) | (WheelPos * 3));
+  } else {
+    WheelPos -= 170;
+    return ((WheelPos * 3) << 16 | (255 - WheelPos * 3));
   }
-  for (int i = 255; i > -1; i--){
-    ledcWrite(PIN_LED, i);
-    delay(10);
+}
+
+void loop() {
+  for (int i = 0; i < 256; i++){
+    setColor(wheel(i));
+    delay(20);
   }
 }
