@@ -4,6 +4,7 @@
   Auther      : www.freenove.com
   Modification: 2024/06/18
 **********************************************************************/
+#include <Arduino.h>
 #define PIN_LED   2     //define the led pin
 #define CHN       0     //define the pwm channel
 #define FRQ       1000  //define the pwm frequency

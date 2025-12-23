@@ -4,6 +4,8 @@
   Auther      : www.freenove.com
   Modification: 2024/06/18
 **********************************************************************/
+#include <Arduino.h>
+
 byte ledPins[] = {15, 2, 0, 4, 5, 18, 19, 21, 22, 23};
 int ledCounts;
 
